@@ -47,29 +47,38 @@ void print_flags(void){
 
 int main(void){
     while(1){
-        
+        printf("0. CARRIAGE_AT_RIGHT\n");
+        printf("1. CARRIAGE_AT_LEFT\n");
+        printf("2. START_REQUEST\n");
+        printf("3. STOP_REQUEST\n");
+        printf("4. COVER_OPEN\n");
+        printf("5. INK_LOW\n");
+        printf("6. MEDIA_EMPTY\n");
+        printf("7. EXIT\n");
+
+        int input;
+        scanf("%d", &input);
+
+        if(input < 0 || input > 7){
+            printf("False Input\n");
+            continue;
+        }
+        else if(input == 7){
+            return 0;
+        }
+
+        if(bit_check(1u << input)){
+            bit_off(1u << input);
+        }
+        else{
+            bit_on(1u << input);
+        }
+        print_flags();
+        if(bit_check(ERROR_MASK)){
+            printf("ERROR\n");
+        }
+        else{
+            printf("OK\n");
+        }
     }
 }
-
-/* 헤더 두 개 (하나는 printf, 하나는 uint8_t) */
-
-/* 1. 플래그 상수: 비트 자리 7개 */
-
-/* 2. 마스크: ERROR_MASK, START_READY_MASK */
-
-/* 3. 센서 상태를 담는 변수 flags 하나 (함수 밖에 선언) */
-
-/* 4. 함수들
-      - 비트 세우기
-      - 비트 지우기
-      - 비트 켜져 있는지 확인
-      - flags를 2진수 8자리로 출력 */
-
-/* 5. main
-      반복:
-        메뉴 보여주기
-        번호 입력받기
-        그 번호의 센서를 켜거나 끄기
-        flags를 2진수로 출력
-        에러가 있는지 없는지 출력
-      특정 번호를 입력하면 종료 */
