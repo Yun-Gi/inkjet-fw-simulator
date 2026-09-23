@@ -38,8 +38,17 @@ bool bit_check(uint8_t mask){
     }
 }
 
+void print_flags(void){
+    for(int i = 7; i >= 0; i--){
+        printf("%d", bit_check(1u << i));
+    }
+    printf("\n");
+}
+
 int main(void){
-   
+    while(1){
+        
+    }
 }
 
 /* 헤더 두 개 (하나는 printf, 하나는 uint8_t) */
