@@ -55,6 +55,27 @@ void print_flags(void){
     printf("\n");
 }
 
+void update_sonsors(void){
+    if(carriage_pos == 0){
+        bit_on(FLAG_CARRIAGE_AT_LEFT);
+    }
+    else{
+        bit_off(FLAG_CARRIAGE_AT_LEFT);
+    }
+    if(carriage_pos == CARRIAGE_POS_MAX){
+        bit_on(FLAG_CARRIAGE_AT_RIGHT);
+    }
+    else{
+        bit_off(FLAG_CARRIAGE_AT_RIGHT);
+    }
+}
+
+bool error_check(void){
+    if(flags & (ERROR_MASK)){
+        bit_off(FLAG_STOP_REQUEST | FLAG_START_REQUEST);
+    }
+}
+
 int main(void){
     /*while(1){
         printf("0. CARRIAGE_AT_RIGHT\n");
@@ -95,9 +116,13 @@ int main(void){
     const char *state_names[] = {"ST_IDLE", "ST_CARRIAGE_SCAN", "ST_MEDIA_FEED", "ST_HALTED", "ST_CARRIAGE_RETURN"};
     int job_size = 3;
     int tick = 0;
+
     while(1){
+        update_sonsors();
+        error_check();
         printf("[tick %3d] %-18s pos=%2d feed=%d lines=%d/%d  flags=", tick++, state_names[current_state], carriage_pos, feed_steps, printed_lines, total_lines);
         print_flags();
+    
         switch (current_state)
         {
         case ST_IDLE:
@@ -160,4 +185,6 @@ int main(void){
         
         getchar();
     }
+
+
 }
