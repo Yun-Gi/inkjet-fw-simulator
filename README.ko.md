@@ -12,7 +12,7 @@
 
 ## 상태 전이도
 
-손으로 그린 설계도는 [docs/state_diagram.pdf](docs/state_diagram.pdf)에 있습니다. 아래는 요약입니다.
+아래는 요약본입니다.
 
 ```mermaid
 stateDiagram-v2
@@ -37,6 +37,12 @@ stateDiagram-v2
 | `ST_CARRIAGE_SCAN` | 캐리지가 왼쪽에서 오른쪽으로 움직이며 한 줄 인쇄 |
 | `ST_CARRIAGE_RETURN` | 잉크를 뿜지 않고 왼쪽 끝(원점)으로 복귀 |
 | `ST_HALTED` | 에러로 인한 멈춤. 인쇄는 취소 |
+
+### 설계 단계에서 작성한 상세판
+
+코드를 짜기 전에 작성한 상태 전이도입니다. 각 전이의 조건과 전이할 때 하는 동작을 코드 형태로 적었습니다. 빨간 화살표는 에러로 인한 전이이고, 다른 전이보다 먼저 판단합니다.
+
+![상태 전이도(상세판)](state_diagram.png)
 
 ## 설계 요점
 
